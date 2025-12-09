@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Текстовый квест с ИИ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   
+    <div id="startScreen" class="start-screen">
+        <div class="start-container">
+            <div class="welcome-message">
+                <div class="quest-title">
+                    <h1><i class="fas fa-scroll"></i> Текстовый квест с ИИ</h1>
+                    <p class="subtitle">ИИ проведет вас через мистические приключения</p>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-robot"></i>
+                        <span>Умный ИИ-поводырь</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <span>Динамичные сюжеты</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-magic"></i>
+                        <span>Генерация в реальном времени</span>
+                    </div>
+                </div>
+                <div class="story-intro">
+                    <p>Добро пожаловать в мир AI-приключений! Ваш личный ИИ-мастер будет создавать уникальные истории, адаптируясь к вашим решениям.</p>
+                    <p>Каждый выбор открывает новые пути. Готовы начать?</p>
+                </div>
+            </div>
+            <button id="startButton" class="start-button">
+                <i class="fas fa-play-circle"></i> Начать приключение
+            </button>
+        </div>
+    </div>
+
+    <div id="chatInterface" class="chat-interface" style="display: none;">
+        <div class="container">
+            <div class="main-content">
+                
+                <div class="chat-container">
+                    <div class="quest-header">
+                        <div class="quest-info">
+                            <div class="quest-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="quest-title-small">
+                                <h2>Текстовый квест</h2>
+                                <p class="quest-subtitle">Квест, где ИИ — главный сказочник</p>
+                            </div>
+                        </div>
+                        <div class="quest-stats">
+                            <div class="stat">
+                                <i class="fas fa-scroll"></i>
+                                <span id="messageCount">0</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-bolt"></i>
+                                <span id="aiStatus">Подключен</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages-wrapper">
+                        <div class="chat-messages" id="chatMessages">
+                            
+                        </div>
+                        <div class="scroll-indicator" id="scrollIndicator">
+                            <i class="fas fa-chevron-up"></i> Прокрутите вверх для истории
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="chatInput" 
+                               placeholder="Тишина… Такая громкая тишина! Может, нарушим её парой слов?">
+                        <button class="send-button" id="sendButton">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="controls-container">
+                    <div>
+                        <h2 class="controls-header"><i class="fas fa-cogs"></i> Управление</h2>
+                        <button class="reset-button" id="resetButton">
+                            <i class="fas fa-redo"></i> Начать новый квест
+                        </button>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h3><i class="fas fa-info-circle"></i> Информация</h3>
+                        <p>Нет идей? YandexGPT уже придумал!</p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h3><i class="fas fa-lightbulb"></i> Советы</h3>
+                        <p>• Исследуйте окружающий мир</p>
+                        <p>• Принимайте смелые решения</p>
+                    </div>
+                    
+                    <button class="back-button" id="backButton">
+                        <i class="fas fa-home"></i> На главную
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-overlay" id="modalOverlay">
+                <div class="modal">
+                    <div class="modal-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Начать новую историю?</h2>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <p>История на грани исчезновения! Вы — её судья</p>
+                        <p><strong>"казнить" или "помиловать"?</strong></p>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button class="modal-button cancel" id="cancelButton">Помиловать</button>
+                        <form action="/api/clear" method="POST">
+                            <button class="modal-button confirm" id="confirmButton">Казнить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>AI Текстовый квест | Powered by YandexGPT & Flask</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <div class="paper-texture"></div>
+    <div class="quest-decoration decoration-1">🤖</div>
+    <div class="quest-decoration decoration-2">⚡</div>
+
+</body>
+</html>
