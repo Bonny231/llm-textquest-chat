@@ -29,7 +29,7 @@ class ChatHistory(db.Model):
 
 class LLMService:
     def __init__(self, prompt_file):
-        current_dir = os.path.dirname(os.path.abspath(__file__))  
+        current_dir = os.path.dirname(os.path.abspath(__file__))
         prompt_path = os.path.join(current_dir, prompt_file)
         try:
             with open(prompt_path, 'r', encoding='utf-8') as f:
@@ -65,9 +65,6 @@ class LLMService:
                 if msg.get("role") != "system":
                     messages.append(msg)
             
-            # Добавляем историю
-            # messages.extend(conversation_history)
-            
             # Добавляем текущее сообщение пользователя
             messages.append({"role": "user", "content": user_message})
             
@@ -77,7 +74,7 @@ class LLMService:
                 model=self.model,
                 messages=messages,
                 temperature=0.8,
-                max_tokens=4096,
+                max_tokens=450,
             )
             
             reply = response.choices[0].message.content
@@ -159,4 +156,5 @@ def chat_with_llm(user_message, use_history=True, history_limit=10):
     except Exception as e:
         logger.error(f"Ошибка в chat_with_llm: {str(e)}")
         return "Произошла ошибка при обработке запроса."
+
 
