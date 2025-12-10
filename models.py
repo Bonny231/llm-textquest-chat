@@ -3,6 +3,7 @@ import openai
 import dotenv
 import logging
 from datetime import datetime, timezone, timedelta
+import os
 
 # Настройка логгирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -28,8 +29,10 @@ class ChatHistory(db.Model):
 
 class LLMService:
     def __init__(self, prompt_file):
+        current_dir = os.path.dirname(os.path.abspath(__file__))  
+        prompt_path = os.path.join(current_dir, prompt_file)
         try:
-            with open(prompt_file, 'r', encoding='utf-8') as f:
+            with open(prompt_path, 'r', encoding='utf-8') as f:
                 self.sys_prompt = f.read()
         except FileNotFoundError:
             logger.warning(f"Файл промпта {prompt_file} не найден.")
@@ -156,3 +159,4 @@ def chat_with_llm(user_message, use_history=True, history_limit=10):
     except Exception as e:
         logger.error(f"Ошибка в chat_with_llm: {str(e)}")
         return "Произошла ошибка при обработке запроса."
+
